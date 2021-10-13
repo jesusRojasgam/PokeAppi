@@ -1,5 +1,6 @@
 const ul=document.querySelector('.display');
 
+let lastPokemon = 11
 
 window.addEventListener("scroll", () => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
@@ -13,7 +14,7 @@ window.addEventListener("scroll", () => {
 
 const getPokemons= async ()=>{
 let pokemonJsonOutSide =[];    
-for (let i = 1; i < lastPokemon && i < 152; i++) {
+for (let i = 1; i < lastPokemon && i <= 151; i++) {
     let pokemonUrl = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}/`);
     let pokemonsJson = await pokemonUrl.json();
     pokemonJsonOutSide.push(pokemonsJson)
@@ -35,10 +36,9 @@ displayPokemon(mappedPokemon);
 const displayPokemon=(mappedPokemon)=>{
     const pokemonsHtml=mappedPokemon.map(
         (element)=>
-        `<li><h3>${element.name}</h3>
+        `<li><h3>${element.name} ${element.id}</h3>
         <img src="${element.image1}" alt="${element.name}"/>
         <img src="${element.image2}" alt="${element.name}"/>
-        
         </li>`
     ).join('');
     
